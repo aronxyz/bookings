@@ -7,7 +7,8 @@ export interface AuthResponse {
     token: string;
 }
 
-const authUrl = "https://restful-booker.herokuapp.com/auth"
+const authUrl = "/auth"
+
 
 export const authenticate = async (data: AuthRequest): Promise<AuthResponse> => {
     const response = await fetch(authUrl, {
@@ -16,10 +17,21 @@ export const authenticate = async (data: AuthRequest): Promise<AuthResponse> => 
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    })
-    if (!response.ok) {
-        throw new Error('Authentication failed');
+    });
+
+    // Parse the response as JSON
+    const responseData = await response.json();
+
+    // Check for a specific failure condition, even if the status is 200
+    if (response.ok && responseData.reason && responseData.reason === "Bad credentials") {
+        throw new Error('Authentication failed: Bad credentials');
     }
 
-    return response.json();
-}
+    // If response is not ok (e.g., other status codes), throw an error
+    if (!response.ok) {
+        throw new Error(`Authentication failed: ${responseData?.reason || 'Unknown error'}`);
+    }
+
+    // If no issues, return the parsed data (which should be the token)
+    return responseData;
+};
