@@ -66,6 +66,10 @@ export default function Auth() {
     console.log(error)
   }
   
+  if (isSuccess) {
+    console.log("")
+  }
+
   return (
     <Card
       variant="outlined"
