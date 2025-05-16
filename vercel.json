@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/auth/:path*",
+      "destination": "https://restful-booker.herokuapp.com/auth/:path*"
+    },
+    {
+      "source": "/booking/:path*",
+      "destination": "https://restful-booker.herokuapp.com/booking/:path*"
+    }
+  ]
+}

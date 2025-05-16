@@ -19,13 +19,6 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/booking/, '/booking'),  // Correct type for 'path'
       },
-
-      // Add more routes as needed
-      '/customers': {
-        target: 'https://restful-booker.herokuapp.com',
-        changeOrigin: true,
-        rewrite: (path: string) => path.replace(/^\/customers/, '/customers'),  // Correct type for 'path'
-      },
     },
   },
 
