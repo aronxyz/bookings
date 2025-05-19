@@ -1,15 +1,16 @@
 // src/context/AuthContext.tsx
 import { createContext, useContext, useState, type ReactNode } from 'react';
+import type { AuthResponse } from '../api/auth';
 
 type AuthContextType = {
-  token: string | null;
-  setToken: (token: string | null) => void;
+  token: AuthResponse | null;
+  setToken: (token: AuthResponse | null) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<AuthResponse | null>(null);
 
   return (
     <AuthContext.Provider value={{ token, setToken }}>
